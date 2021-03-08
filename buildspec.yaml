@@ -1,0 +1,12 @@
+version: 0.2
+phases:
+    pre_build:
+        commands:
+            - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+    build:
+        commands:
+            - docker build -t spam_ham_new:1 .
+            - docker tag spam_ham_new:1 990463175763.dkr.ecr.us-east-2.amazonaws.com/spam-ham-new
+    post_build:
+        commands:
+            - docker push 990463175763.dkr.ecr.us-east-2.amazonaws.com/spam-ham-new
